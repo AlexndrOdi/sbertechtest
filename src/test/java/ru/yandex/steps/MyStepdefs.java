@@ -10,12 +10,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.yandex.pages.Yandex.YandexPage;
 import ru.yandex.pages.Yandex.YmMainPage;
+import ru.yandex.pages.Yandex.YmSearchPage;
 
 
 public class MyStepdefs{
     private WebDriver driver;
     private YandexPage yandexPage;
     private YmMainPage ymMainPage;
+    private YmSearchPage ymSearchPage;
 
     @Before
     public void setUp() {
@@ -62,42 +64,34 @@ public class MyStepdefs{
     @Когда("^пользователь выбирает раздел комьютеры$")
     public void пользовательВыбираетРазделКомьютеры() throws Throwable {
         ymMainPage = new YmMainPage(driver);
-        ymMainPage.chooseComp();
-//        Assert.assertTrue(driver.getTitle().equals("Компьютерная техника — купить на Яндекс.Маркете"));
+        ymMainPage.pressComp();
     }
 
-    /*@И("^выбирает раздел Ноутбуки$")
+    @И("^выбирает раздел Ноутбуки$")
     public void выбираетРазделНоутбуки() throws Throwable {
-        driver.findElement(By.linkText("Ноутбуки")).click();
+        ymMainPage.pressLaptop();
     }
 
     @Тогда("^пользователь находится в разделе Ноутбуки$")
     public void пользовательНаходитсяВРазделеНоутбуки() throws Throwable {
-        Assert.assertTrue(driver.getTitle().equals("Ноутбуки — купить на Яндекс.Маркете"));
+        System.out.println("In laptop");
     }
 
     @Когда("^пользователь переходит в расширенный поиск$")
     public void пользовательПереходитВРасширенныйПоиск() throws Throwable {
-
-        driver.findElement(By.cssSelector("#search-prepack > div > div > div:nth-child(2) > div > div._3U2TeVBOWN > div > div > a")).click();
-
-        Assert.assertTrue(driver.getTitle().equals("Все фильтры — Ноутбуки — выбор по параметрам на Яндекс.Маркете"));
+        ymMainPage.pressFilters();
     }
 
     @И("^выбирает производителя HP и Lenovo$")
     public void выбираетПроизводителяHPИLenovo() throws Throwable {
-
-        driver.findElement(By.cssSelector("body > div.main > div:nth-child(5) > div > div.n-filter-panel-extend.i-bem.n-filter-panel-extend_js_inited > div:nth-child(1) > div:nth-child(2) > div.n-filter-block__body.i-bem.n-filter-block__body_js_inited > div > div.n-filter-block__list-items.i-bem > div:nth-child(6) > a > span")).click();
-        driver.findElement(By.cssSelector("body > div.main > div:nth-child(5) > div > div.n-filter-panel-extend.i-bem.n-filter-panel-extend_js_inited > div:nth-child(1) > div:nth-child(2) > div.n-filter-block__body.i-bem.n-filter-block__body_js_inited > div > div.n-filter-block__list-items.i-bem > div:nth-child(7) > a > span")).click();
-        driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
-
-        Assert.assertTrue(driver.findElement(By.id("glf-7893318-152981")).isSelected());
-        Assert.assertTrue(driver.findElement(By.id("glf-7893318-152981")).isSelected());
+        ymSearchPage = new YmSearchPage(driver);
+        ymSearchPage.setCheckBox("HP");
+        ymSearchPage.setCheckBox("Lenovo");
     }
 
-    @И("^нажимает кнопку Применить$")
+    /*@И("^нажимает кнопку Применить$")
     public void нажимаетКнопкуПрименить() throws Throwable {
-        driver.findElement(By.linkText("Показать подходящие"));
+
     }
 
     @Тогда("^отображается (\\d+) элементов на странице$")
