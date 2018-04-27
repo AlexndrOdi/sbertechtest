@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import ru.yandex.pages.Yandex.YandexPage;
 import ru.yandex.pages.Yandex.YmMainPage;
 import ru.yandex.pages.Yandex.YmSearchPage;
+import ru.yandex.pages.Yandex.YmSearchResultsPage;
 
 
 public class MyStepdefs{
@@ -18,13 +19,13 @@ public class MyStepdefs{
     private YandexPage yandexPage;
     private YmMainPage ymMainPage;
     private YmSearchPage ymSearchPage;
+    private YmSearchResultsPage resultsPage;
 
     @Before
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "C://Users/aodincov/Desktop/доки/stepic_java_webserver-master/stepic_java_webserver-master/chromedriver/chromedriver.exe");
         try{
             driver = new ChromeDriver();
-            System.out.println("Browser open");
         }catch (IllegalStateException e){
             throw new IllegalStateException("Check path to ChromeDriver");
         }
@@ -38,26 +39,31 @@ public class MyStepdefs{
     @Когда("^пользователь открывает браузер и нажимает полноэкранные режим$")
     public void открываетсяБраузер() throws Throwable {
         driver.manage().window().fullscreen();
+        //TODO: написать проверку
     }
 
     @И("^пользователь переходит на yandex.ru$")
     public void пользовательПереходит() throws Throwable {
         driver.get("https://yandex.ru/");
+        //TODO: написать проверку
     }
 
     @Тогда("^открывается страница yandex.ru$")
     public void открываетсяСтраница() throws Throwable {
         yandexPage = new YandexPage(this.driver);
+        //TODO: передлать проверку
         Assert.assertTrue(yandexPage.checkTitle("Яндекс"));
     }
 
     @Когда("^пользователь нажимает маркет$")
     public void пользовательНажимаетМаркет() throws Throwable {
         yandexPage.navigateToMarket();
+        //TODO: написать проверку
     }
 
     @Тогда("^переходит на яндекс маркет$")
     public void переходитНаЯндексМаркет() throws Throwable {
+        //TODO: переделать проверку
         Assert.assertTrue(driver.getTitle().equals("Яндекс.Маркет — выбор и покупка товаров из проверенных интернет-магазинов"));
     }
 
@@ -65,21 +71,24 @@ public class MyStepdefs{
     public void пользовательВыбираетРазделКомьютеры() throws Throwable {
         ymMainPage = new YmMainPage(driver);
         ymMainPage.pressComp();
+        //TODO: написать проверку
     }
 
     @И("^выбирает раздел Ноутбуки$")
     public void выбираетРазделНоутбуки() throws Throwable {
         ymMainPage.pressLaptop();
+        //TODO: написать проверку
     }
 
     @Тогда("^пользователь находится в разделе Ноутбуки$")
     public void пользовательНаходитсяВРазделеНоутбуки() throws Throwable {
-        System.out.println("In laptop");
+        //TODO: написать проверку
     }
 
     @Когда("^пользователь переходит в расширенный поиск$")
     public void пользовательПереходитВРасширенныйПоиск() throws Throwable {
         ymMainPage.pressFilters();
+        //TODO: написать проверку
     }
 
     @И("^выбирает производителя HP и Lenovo$")
@@ -87,16 +96,18 @@ public class MyStepdefs{
         ymSearchPage = new YmSearchPage(driver);
         ymSearchPage.setCheckBox("HP");
         ymSearchPage.setCheckBox("Lenovo");
+        //TODO: написать проверку
     }
 
-    /*@И("^нажимает кнопку Применить$")
+    @И("^нажимает кнопку Применить$")
     public void нажимаетКнопкуПрименить() throws Throwable {
-
+        ymSearchPage.pressApply();
+        //TODO: написать проверку
     }
 
     @Тогда("^отображается (\\d+) элементов на странице$")
     public void отображаетсяЭлементовНаСтранице(int countElements) throws Throwable {
-        ResultPage resultPage = new ResultPage();
-        resultPage.chekResultCount("10");
-    }*/
+        resultsPage = new YmSearchResultsPage(driver);
+        //TODO: написать проверку
+    }
 }

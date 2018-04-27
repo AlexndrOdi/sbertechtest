@@ -8,6 +8,7 @@ import ru.sbtqa.tag.pagefactory.annotations.ActionTitle;
 import ru.sbtqa.tag.pagefactory.annotations.ElementTitle;
 import ru.sbtqa.tag.pagefactory.annotations.PageEntry;
 import ru.yandex.elements.YmCheckBox;
+import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
@@ -18,6 +19,10 @@ public class YmSearchPage extends Page {
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
     }
 
+    @ElementTitle("Применить")
+    @FindBy(xpath = "/html/body/div[1]/div[4]/div/div[1]/div[5]/a[2]")
+    public Button apply;
+
     @ElementTitle("Фильтры чекбокс")
     @FindBy(css = "div:nth-child(2) > div.n-filter-block__body.i-bem.n-filter-block__body_js_inited > div > div.n-filter-block__list-items.i-bem")
     public YmCheckBox checkBox;
@@ -25,5 +30,10 @@ public class YmSearchPage extends Page {
     @ActionTitle("выбор элементов чекбокса")
     public void setCheckBox(String item){
         checkBox.selectItem(item);
+    }
+
+    @ActionTitle("нажимает применить")
+    public void pressApply(){
+        apply.click();
     }
 }

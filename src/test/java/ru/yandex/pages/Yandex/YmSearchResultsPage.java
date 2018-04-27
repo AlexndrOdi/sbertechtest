@@ -1,5 +1,6 @@
 package ru.yandex.pages.Yandex;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import ru.sbtqa.tag.pagefactory.Page;
 import ru.sbtqa.tag.pagefactory.PageFactory;
@@ -18,10 +19,14 @@ public class YmSearchResultsPage extends Page {
     private HeaderBlock headerBlock;
 
     @ElementTitle("Список товаров")
-    @FindBy(xpath = ".//div[contains(@class,'n-snippet-card2 ')]")
+    @FindBy(xpath = "//*[contains(@class,'n-snippet-card2 i-bem b-zone')]")
     public List<ProductCard> productCards;
 
-    public YmSearchResultsPage(){
-        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(PageFactory.getDriver())), this);
+    public YmSearchResultsPage(WebDriver driver){
+        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
+    }
+
+    public List<ProductCard> getProductCards() {
+        return productCards;
     }
 }
